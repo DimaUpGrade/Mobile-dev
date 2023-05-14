@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'classes/Machine.dart';
@@ -35,7 +34,7 @@ class MyTestWidget extends StatefulWidget {
 }
 
 class _MyTestWidgetState extends State<MyTestWidget> {
-  String _output = "100";
+  String _output = "Выберите действие";
   CoffeeMachine machine = CoffeeMachine(300, 500, 600, 0);
 
   @override
