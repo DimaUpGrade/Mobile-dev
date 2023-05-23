@@ -22,6 +22,13 @@ class CoffeeMachine {
         _resources.milk >= coffee.milkRequired;
   }
 
+  void changeResources(Resources value) {
+    _resources.coffeeBeans += value.coffeeBeans;
+    _resources.water += value.water;
+    _resources.milk += value.milk;
+    _resources.cash += value.cash;
+  }
+
   void subtractResources(ICoffee coffee) {
     if (isAvailable(coffee)) {
       _resources.coffeeBeans -= coffee.coffeeBeansRequired;

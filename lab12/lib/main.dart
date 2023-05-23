@@ -1,158 +1,74 @@
 import 'package:lab12/Classes/Enums.dart';
 import 'package:lab12/Classes/ICoffee.dart';
-
 import 'Classes/Coffee.dart';
 import 'Classes/Machine.dart' as mach;
 import 'Classes/Resources.dart';
 import 'package:flutter/material.dart';
+import 'package:lab12/Classes/Pages/Settings.dart';
+import 'package:lab12/Classes/Pages/Display.dart';
 
 import 'classes/Machine.dart';
 import 'dart:developer' as developer;
 
 void main() {
-
-  runApp(const MyApp());
+  runApp(const MyTabBarApp());
+  
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class MyTabBarApp extends StatelessWidget {
+  const MyTabBarApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Coffee machine',
-      theme: ThemeData(
-        primarySwatch: Colors.brown,
-      ),
-      home: const MyTestWidget(title: 'Coffee machine'),
+      theme: ThemeData(useMaterial3: true),
+      home: MyTabBarBuild(),
     );
   }
 }
 
-class MyTestWidget extends StatefulWidget {
-  const MyTestWidget({super.key, required this.title});
-
-  final String title;
+class MyTabBarBuild extends StatefulWidget {
+  const MyTabBarBuild({Key? key}) : super(key: key);
 
   @override
-  State<MyTestWidget> createState() => _MyTestWidgetState();
+  _MyTabBarBuildState createState() => _MyTabBarBuildState();
+
 }
 
-class _MyTestWidgetState extends State<MyTestWidget> {
-  String _output = "Make your choice, please!";
-  mach.CoffeeMachine machine = mach.CoffeeMachine(Resources(1000, 1000, 1000, 1000));
-
-
-  void makeCof (ICoffee coffee) async {
-    await machine.makingCoffee(coffee);
-    setState(() {_output = 'Your ${coffee.coffeeName} is done!';});
-  }
+class _MyTabBarBuildState extends State<MyTabBarBuild> {
+  mach.CoffeeMachine machine = mach.CoffeeMachine(Resources(0, 0, 0, 0));
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text (
-                _output,
-                style: const TextStyle(
-                  fontSize: 24,
-                )
-            ),
-
-            // Пока что отложены кнопки добавления ресурсов, но их легко сделать
-            // если это потребуется
-            // (здесь код из девятой лабы для кнопок добавки ресурсов)
-            //
-            // ElevatedButton(
-            //     onPressed: () {
-            //       //machine.water += 100;
-            //       setState(() {_output = 'Добавлено 100 мл воды!';});
-            //     },
-            //     style: ElevatedButton.styleFrom(
-            //         backgroundColor: Colors.brown
-            //     ),
-            //     child: const Text("Добавить 100 мл воды")
-            // ),
-            // ElevatedButton(
-            //     onPressed: () {
-            //       //machine.coffeeBeans += 50;
-            //       setState(() {_output = 'Добавлено 50 г кофе!';});
-            //     },
-            //     style: ElevatedButton.styleFrom(
-            //         backgroundColor: Colors.brown
-            //     ),
-            //     child: const Text("Добавить 50 г кофе")
-            // ),
-
-            ElevatedButton(
-                onPressed: () {
-                  Espresso espresso = Espresso();
-                  if (machine.isAvailable(espresso)) {
-                    makeCof(espresso);
-                  }
-                  else {
-                    setState(() {_output = "Not enough resources!";});
-                  }
-                },
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.brown
-                ),
-                child: const Text("Make espresso")
-            ),
-            ElevatedButton(
-                onPressed: () {
-                  Latte latte = Latte();
-                  if (machine.isAvailable(latte)) {
-                    makeCof(latte);
-                  }
-                  else {
-                    setState(() {_output = "Not enough resources!";});
-                  }
-                },
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.brown
-                ),
-                child: const Text("Make latte")
-            ),
-            ElevatedButton(
-                onPressed: () {
-                  Cappuccino cappuccino = Cappuccino();
-                  if (machine.isAvailable(cappuccino)) {
-                    makeCof(cappuccino);
-                  }
-                  else {
-                    setState(() {_output = "Not enough resources!";});
-                  }
-                },
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.brown
-                ),
-                child: const Text("Make espresso")
-            ),
-            ElevatedButton(
-                onPressed: () {
-                  Americano americano = Americano();
-                  if (machine.isAvailable(americano)) {
-                    makeCof(americano);
-                  }
-                  else {
-                    setState(() {_output = "Not enough resources!";});
-                  }
-                },
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.brown
-                ),
-                child: const Text("Make americano")
-            ),
+    return DefaultTabController(
+      initialIndex: 0,
+      length: 2,
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text(
+              'Coffee Machine',
+              style: TextStyle(color: Colors.white)
+          ),
+          backgroundColor: Colors.brown,
+          bottom: const TabBar(
+            tabs: <Widget>[
+              Tab(
+                icon: Icon(Icons.coffee, color: Colors.white),
+              ),
+              Tab(
+                icon: Icon(Icons.settings, color: Colors.white),
+              ),
+            ],
+          ),
+        ),
+        body: TabBarView(
+          children: [
+            // Display(machine: machine),
+            Settings(machine: machine),
           ],
         ),
       ),
     );
   }
+  
 }
