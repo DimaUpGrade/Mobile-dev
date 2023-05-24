@@ -25,8 +25,6 @@ class _Display extends State<Display> {
   bool _isMakingCoffee = false;
 
   void _addCash() {
-    // cash -- это деньги, хранящиеся в кофемашине
-
     int cash = int.parse(_cashInput.text);
     widget.machine.changeResources(Resources(0, 0, 0, cash));
     setState(() {});
