@@ -22,6 +22,21 @@ class CoffeeMachine {
         _resources.milk >= coffee.milkRequired;
   }
 
+  void zeroResource(String resource) {
+    if(resource == 'beans') {
+      _resources.coffeeBeans = 0;
+    }
+    if(resource == 'water') {
+      _resources.water = 0;
+    }
+    if(resource == 'milk') {
+      _resources.milk = 0;
+    }
+    if(resource == 'cash') {
+      _resources.cash = 0;
+    }
+  }
+
   void changeResources(Resources value) {
     _resources.coffeeBeans += value.coffeeBeans;
     _resources.water += value.water;

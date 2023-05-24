@@ -12,11 +12,6 @@ class Settings extends StatefulWidget {
 }
 
 class _Settings extends State<Settings> {
-  int beans = 0;
-  int water = 0;
-  int milk = 0;
-  int cash = 0;
-
   final _formKey = GlobalKey<FormState>();
   var _beansInput = TextEditingController();
   var _waterInput = TextEditingController();
@@ -24,23 +19,47 @@ class _Settings extends State<Settings> {
   var _cashInput = TextEditingController();
 
   void _changeResources(String value) {
+    int beans = int.parse(_beansInput.text);
+    int water = int.parse(_waterInput.text);
+    int milk = int.parse(_milkInput.text);
+    int cash = int.parse(_cashInput.text);
+
     if (value == 'add') {
-      Resources resources = Resources(
-          int.parse(_beansInput.text),
-          int.parse(_waterInput.text),
-          int.parse(_milkInput.text),
-          int.parse(_cashInput.text),
-      );
+      Resources resources = Resources(beans, water, milk, cash);
       widget.machine.changeResources(resources);
       setState(() {});
     }
     if (value == 'take') {
-      Resources resources = Resources(
-          -int.parse(_beansInput.text),
-          -int.parse(_waterInput.text),
-          -int.parse(_milkInput.text),
-          -int.parse(_cashInput.text)
-      );
+      if (widget.machine.resources.coffeeBeans - beans >= 0) {
+        beans = -beans;
+      }
+      else {
+        beans = 0;
+        widget.machine.zeroResource('beans');
+      }
+      if (widget.machine.resources.water - water >= 0) {
+        water = -water;
+      }
+      else {
+        water = 0;
+        widget.machine.zeroResource('water');
+      }
+      if (widget.machine.resources.milk - milk >= 0) {
+        milk = -milk;
+      }
+      else {
+        milk = 0;
+        widget.machine.zeroResource('milk');
+      }
+      if (widget.machine.resources.cash - cash >= 0) {
+        cash = -cash;
+      }
+      else {
+        cash = 0;
+        widget.machine.zeroResource('cash');
+      }
+
+      Resources resources = Resources(beans, water, milk, cash);
       widget.machine.changeResources(resources);
       setState(() {});
     }
@@ -49,16 +68,16 @@ class _Settings extends State<Settings> {
   @override
   void initState() {
     super.initState();
-    _beansInput = TextEditingController(text: '');
-    _waterInput = TextEditingController(text: '');
-    _milkInput = TextEditingController(text: '');
-    _cashInput = TextEditingController(text: '');
+    _beansInput = TextEditingController(text: '0');
+    _waterInput = TextEditingController(text: '0');
+    _milkInput = TextEditingController(text: '0');
+    _cashInput = TextEditingController(text: '0');
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey,
+      backgroundColor: Colors.white,
       body: Form(
         key: _formKey,
         child: ListView(
@@ -189,6 +208,7 @@ class _Settings extends State<Settings> {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
                           content: Text('Resources has been added!'),
+                          duration: Duration(milliseconds: 450),
                         )
                       );
                     }
@@ -207,6 +227,7 @@ class _Settings extends State<Settings> {
                       ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
                             content: Text('Resources has been taken!'),
+                            duration: Duration(milliseconds: 450),
                           )
                       );
                     }
