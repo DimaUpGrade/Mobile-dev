@@ -47,7 +47,9 @@ class _MyTabBarBuildState extends State<MyTabBarBuild> {
         appBar: AppBar(
           title: const Text(
               'Coffee Machine',
-              style: TextStyle(color: Colors.white)
+              style: TextStyle(
+                color: Colors.white,
+              )
           ),
           backgroundColor: Colors.brown,
           bottom: const TabBar(
@@ -63,7 +65,7 @@ class _MyTabBarBuildState extends State<MyTabBarBuild> {
         ),
         body: TabBarView(
           children: [
-            // Display(machine: machine),
+            Display(machine: machine),
             Settings(machine: machine),
           ],
         ),

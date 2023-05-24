@@ -67,10 +67,10 @@ class CoffeeMachine {
         await bCoffee();
       }
 
-      print("Your ${coffee.coffeeName} is done!");
+      //print("Your ${coffee.coffeeName} is done!");
 
     } else {
-      print("There is not enough resources!");
+      //print("There is not enough resources!");
       //print('Not enough resources to make your ${coffee.coffeeName}!');
     }
   }

@@ -96,6 +96,12 @@ class _Settings extends State<Settings> {
                       width: 400,
                       decoration: const BoxDecoration(
                         color: Colors.deepPurpleAccent,
+                        border: Border(
+                            top: BorderSide(color: Colors.deepPurple, width: 4.0),
+                            left: BorderSide(color: Colors.deepPurple, width: 4.0),
+                            right: BorderSide(color: Colors.deepPurple, width: 4.0),
+                            bottom: BorderSide(color: Colors.deepPurple, width: 4.0)
+                        ),
                       ),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -105,35 +111,39 @@ class _Settings extends State<Settings> {
                             style: TextStyle(
                               fontSize: 30,
                               color: Colors.white,
-                              fontWeight: FontWeight.bold,
+                              // fontWeight: FontWeight.bold,
+                                fontFamily: 'Minecraft'
                             ),
                           ),
                           Text(
                             'Coffee: ${widget.machine.resources.coffeeBeans}',
                             style: const TextStyle(
                               fontSize: 16,
-                              color: Colors.white
+                              color: Colors.white,
+                                fontFamily: 'Minecraft'
                             ),
                           ),
                           Text(
                             'Water: ${widget.machine.resources.water}',
                             style: const TextStyle(
                                 fontSize: 16,
-                                color: Colors.white
+                                color: Colors.white,
+                              fontFamily: 'Minecraft'
                             ),
                           ),
                           Text(
                             'Milk: ${widget.machine.resources.milk}',
                             style: const TextStyle(
                                 fontSize: 16,
-                                color: Colors.white
-                            ),
+                                color: Colors.white,
+                                fontFamily: 'Minecraft'),
                           ),
                           Text(
                             'Money inside: ${widget.machine.resources.cash}',
                             style: const TextStyle(
                                 fontSize: 16,
-                                color: Colors.white
+                                color: Colors.white,
+                                fontFamily: 'Minecraft'
                             ),
                           )
                         ],
@@ -196,7 +206,7 @@ class _Settings extends State<Settings> {
               decoration: const InputDecoration(hintText: 'Cash'),
             ),
             const SizedBox(
-              height: 15,
+              height: 150,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -215,10 +225,11 @@ class _Settings extends State<Settings> {
                   },
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(
-                      vertical: 16, horizontal: 24
-                    )
+                      vertical: 16, horizontal: 16
+                    ),
+                    backgroundColor: Colors.green
                   ),
-                  child: const Icon(Icons.add),
+                  child: const Icon(Icons.add, color: Colors.white),
                 ),
                 ElevatedButton(
                   onPressed: () {
@@ -234,10 +245,11 @@ class _Settings extends State<Settings> {
                   },
                   style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(
-                          vertical: 16, horizontal: 24
-                      )
-                  ),
-                  child: const Icon(Icons.remove),
+                        vertical: 16,
+                        horizontal: 16,
+                      ),
+                      backgroundColor: Colors.red),
+                  child: const Icon(Icons.remove, color: Colors.white),
                 )
               ],
             )
