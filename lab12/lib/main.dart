@@ -36,7 +36,7 @@ class MyTabBarBuild extends StatefulWidget {
 }
 
 class _MyTabBarBuildState extends State<MyTabBarBuild> {
-  mach.CoffeeMachine machine = mach.CoffeeMachine(Resources(0, 0, 0, 0));
+  mach.CoffeeMachine machine = mach.CoffeeMachine(Resources(0, 0, 0, 0), 0);
 
   @override
   Widget build(BuildContext context) {

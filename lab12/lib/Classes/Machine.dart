@@ -5,8 +5,9 @@ import 'AsyncCoffee.dart';
 
 class CoffeeMachine {
   Resources _resources;
+  int _userMoney;
 
-  CoffeeMachine(this._resources);
+  CoffeeMachine(this._resources, this._userMoney);
 
   Resources get resources {
     return _resources;
@@ -14,6 +15,14 @@ class CoffeeMachine {
 
   set resources (Resources value) {
     _resources = value;
+  }
+
+  int get userMoney {
+    return _userMoney;
+  }
+
+  set userMoney (int value){
+    _userMoney = value;
   }
 
   bool isAvailable(ICoffee coffee) {

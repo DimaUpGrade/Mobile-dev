@@ -14,7 +14,6 @@ class Display extends StatefulWidget {
 
 class _Display extends State<Display> {
   ICoffee? _coffee;
-  int money = 0;
   var _cashInput = TextEditingController();
   Espresso espresso = Espresso();
   Latte latte = Latte();
@@ -25,9 +24,9 @@ class _Display extends State<Display> {
   bool _isMakingCoffee = false;
 
   void _addMoney() {
-    money += int.parse(_cashInput.text);
+    widget.machine.userMoney += int.parse(_cashInput.text);
     setState(() {
-      money;
+      widget.machine.userMoney;
     });
   }
 
@@ -49,10 +48,10 @@ class _Display extends State<Display> {
         _isMakingCoffee = true;
       });
 
-      if (widget.machine.isAvailable(_coffee!) && money >= _coffee!.coffeePrice) {
-        money -= _coffee!.coffeePrice;
+      if (widget.machine.isAvailable(_coffee!) && widget.machine.userMoney >= _coffee!.coffeePrice) {
+        widget.machine.userMoney -= _coffee!.coffeePrice;
         setState(() {
-          money;
+          widget.machine.userMoney;
         });
         await widget.machine.makingCoffee(_coffee!);
         setState(() {
@@ -123,7 +122,7 @@ class _Display extends State<Display> {
                             height: 10,
                           ),
                           Text (
-                            'Your money: $money',
+                            'Your money: ${widget.machine.userMoney}',
                             style: const TextStyle(
                               fontSize: 15,
                               fontFamily: 'Minecraft',
