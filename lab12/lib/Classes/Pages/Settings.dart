@@ -139,7 +139,7 @@ class _Settings extends State<Settings> {
                                 fontFamily: 'Minecraft'),
                           ),
                           Text(
-                            'Money inside: ${widget.machine.resources.cash}',
+                            'Cash: ${widget.machine.resources.cash}',
                             style: const TextStyle(
                                 fontSize: 16,
                                 color: Colors.white,
