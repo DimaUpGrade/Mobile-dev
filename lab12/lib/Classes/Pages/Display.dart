@@ -14,7 +14,7 @@ class Display extends StatefulWidget {
 
 class _Display extends State<Display> {
   ICoffee? _coffee;
-  int cash = 0;
+  int money = 0;
   var _cashInput = TextEditingController();
   Espresso espresso = Espresso();
   Latte latte = Latte();
@@ -24,10 +24,11 @@ class _Display extends State<Display> {
 
   bool _isMakingCoffee = false;
 
-  void _addCash() {
-    int cash = int.parse(_cashInput.text);
-    widget.machine.changeResources(Resources(0, 0, 0, cash));
-    setState(() {});
+  void _addMoney() {
+    money += int.parse(_cashInput.text);
+    setState(() {
+      money;
+    });
   }
 
   @override
@@ -38,6 +39,7 @@ class _Display extends State<Display> {
 
   void _clearCashInput() {
     _cashInput.clear();
+    setState(() {});
   }
 
   Future<void> _makeCoffee() async {
@@ -47,9 +49,12 @@ class _Display extends State<Display> {
         _isMakingCoffee = true;
       });
 
-      if (widget.machine.isAvailable(_coffee!)) {
+      if (widget.machine.isAvailable(_coffee!) && money >= _coffee!.coffeePrice) {
+        money -= _coffee!.coffeePrice;
+        setState(() {
+          money;
+        });
         await widget.machine.makingCoffee(_coffee!);
-
         setState(() {
           _process = 'Process of making ${_coffee!.coffeeName} is completed';
           _isMakingCoffee = false;
@@ -118,7 +123,7 @@ class _Display extends State<Display> {
                             height: 10,
                           ),
                           Text (
-                            'Your money: ${widget.machine.resources.cash}',
+                            'Your money: $money',
                             style: const TextStyle(
                               fontSize: 15,
                               fontFamily: 'Minecraft',
@@ -224,7 +229,7 @@ class _Display extends State<Display> {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    _addCash();
+                    _addMoney();
                   },
                   child: const Icon(Icons.attach_money),
                 ),
